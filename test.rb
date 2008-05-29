@@ -1,28 +1,49 @@
-$: << './lib'
+class Array
+  def []
+  end
 
-require 'lib/acts_as_queue.rb'
-require 'lib/listitem.rb'
+  def self.[]
+  end
 
-class TestList < Array
-  include ActsAsQueue
+  def []=
+  end
+
+  def self.[]=
+  end
+
+  def self.new
+  end
+
+  def new
+  end
+
+  def self.initialize
+  end
+
+  def initialize
+  end
+
 end
 
-l = TestList.new
-l << 'one'
-l << 'two'
-l << 'three'
-l << 'four'
-l << 'five'
+def []=
+end
 
-#l.each do |item|
-#  p item
-#end
+def []
+end
 
-l.first.swap_with(l.last.position)
-l.last.to_top
-l[1].to_bottom
+module Kernel
+  def []
+  end
 
-p l.length
-l.first.move_down(l.length)
+  def self.[]
+  end
 
-p l
+  def []=
+  end
+
+  def self.[]=
+  end
+end
+
+a = [0, 1]
+p a[0]

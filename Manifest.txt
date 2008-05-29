@@ -2,8 +2,13 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
+Version.txt
 bin/acts_as_queue
+ext/metaid.rb
 lib/acts_as_queue.rb
+lib/classmethods.rb
+lib/instancemethods.rb
+lib/listitem.rb
 spec/acts_as_queue_spec.rb
 spec/spec_helper.rb
 tasks/ann.rake
@@ -19,3 +24,4 @@ tasks/spec.rake
 tasks/svn.rake
 tasks/test.rake
 test/test_acts_as_queue.rb
+test/test_helper.rb
