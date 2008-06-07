@@ -1,2 +1,4 @@
 doc
+test.rb
 test[0-9].rb
+coverage

@@ -22,6 +22,7 @@ PROJ.rdoc.remote_dir = 'docs/'
 
 PROJ.test.files.delete 'test/test_helper.rb'
 PROJ.test.files.unshift 'test/test_helper.rb'
+PROJ.rcov.opts << '--exclude rcov.rb'
 
 PROJ.spec.opts << '--color'
 

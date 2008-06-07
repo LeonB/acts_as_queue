@@ -1,6 +1,8 @@
 #Idea stolen from rails/activerecord
 module ActsAsQueue
-  require 'ext/metaid.rb'
+  #require 'ext/metaid.rb'
+  require 'listitem.rb'
+  require 'proxy.rb'
   require 'instancemethods.rb'
   require 'classmethods.rb'
 

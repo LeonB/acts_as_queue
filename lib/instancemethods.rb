@@ -1,44 +1,59 @@
 module ActsAsQueue
   module InstanceMethods
     
-    #    def self.included(base)
-    #      base.instance_eval do
-    #        self.each do |item|
-    #          p item
-    #        end
-    #      end
-    #    end
+    #TODO: automize the alias
+    #TODO: automize the single-return methods
+    #TODO: automize the array-based return methods
     
-    def <<(item)
-      p item
-      make_it_a_listitem(item)
-      super(item)
+    def self.included(base)
+      base.send :alias_method, :orig_first, :first
+      base.send :alias_method, :first, :first_as_proxy
+      
+      base.send :alias_method, :orig_last, :last
+      base.send :alias_method, :last, :last_as_proxy
+      
+      base.send :alias_method, :orig_each, :each
+      base.send :alias_method, :each, :each_with_proxies
+      
+      base.send :alias_method, :orig_each_with_index, :each_with_index
+      base.send :alias_method, :each_with_index, :each_with_index_with_proxies
+      
+      base.send :alias_method, 'orig_brackets', '[]'
+      base.send :alias_method, '[]', :brackets_as_proxy
+    end
+  
+    def first_as_proxy
+      item = orig_first
+      ActsAsQueue::Proxy.new(item, self)
+    end
+  
+    def last_as_proxy
+      item = orig_last
+      ActsAsQueue::Proxy.new(item, self)    
     end
     
-    def make_it_a_listitem(item)
-      length = self.length
-      
-      item.meta_eval do
-        include ListItem
-      end
-      
-      item.list = self
-      item.instance_eval do
-        @position = length
+    def each_with_proxies(&block)
+      orig_each do |item|
+        item = ActsAsQueue::Proxy.new(item, self)
+        #block.call(item)
+        yield(item)
       end
     end
     
+    def each_with_index_with_proxies(&block)
+      orig_each_with_index do |*args|
+        args[0] = ActsAsQueue::Proxy.new(args[0], self)
+        yield(args)
+      end      
+    end
+    
+    def brackets_as_proxy(i)
+      item = orig_brackets(i)
+      ActsAsQueue::Proxy.new(item, self)    
+    end
+  
     def last_position
       self.length-1
-    end
-    
-    def lastf
-      p item
-      print "\n\n\n\n"
-      
-      item = super
-      make_it_a_listitem(item)
-      return item
     end
   end
 end
